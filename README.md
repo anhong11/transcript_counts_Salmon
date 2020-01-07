@@ -1,9 +1,6 @@
 # transcript_counts_Salmon
-Create PCA of read counts using Salmon and DESeq2
-
-  Salmon: https://github.com/COMBINE-lab/salmon
-  
-  DESeq2: https://bioconductor.org/packages/release/bioc/html/DESeq2.html
+Create PCA of read counts using Salmon and DESeq2  
+  Salmon: https://github.com/COMBINE-lab/salmon  DESeq2: https://bioconductor.org/packages/release/bioc/html/DESeq2.html
 
 
 # 1. Index the transcriptomes with Salmon
