@@ -2,6 +2,7 @@
 Create PCA of read counts using Salmon and DESeq2
 
   Salmon: https://github.com/COMBINE-lab/salmon
+  
   DESeq2: https://bioconductor.org/packages/release/bioc/html/DESeq2.html
 
 
