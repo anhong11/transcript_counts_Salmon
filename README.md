@@ -25,3 +25,4 @@ do
 	sbatch -n 14 --mem 96G -t 2:00:00 -p Lewis,BioCompute --wrap="salmon quant -l A -i ../pan_trans_cds_index -1 '$line'.pair_1.fq.gz -2 '$line'.pair_2.fq.gz -o quants/'$line'_quant -p 14 --seqBias --validateMappings"
 done <$1 
 ```
+## 3. Use tximport and DESeq2 to get PCA
