@@ -13,12 +13,12 @@ run salmon_count.sh as:
 ```bash
 sh salmon_count.sh sample.txt
 ```
->if the PE fq file named as 2109.pair_1.fq.gz, 2109.pair_2.fq.gz; 2110.pair_1.fq.gz, 2110.pair_2.fq.gz..., the sample.txt will be:
+>if the PE fq file named as 2109.pair_1.fq.gz, 2109.pair_2.fq.gz; 2110.pair_1.fq.gz, 2110.pair_2.fq.gz..., the `sample.txt` will be:
 ```bash
 2109
 2110
 ```
->and the salmon_count.sh is:
+>and the `salmon_count.sh` is:
 ```bash
 while read line
 do
