@@ -9,6 +9,16 @@ Create PCA of read counts using Salmon and DESeq2
 sbatch -n 14 --mem 96G -t 4:00:00 -p Lewis,BioCompute --wrap="salmon index -t pan_trans_cds.fa -i pan_trans_cds_index -k 31 --keepDuplicates -p 14"
 ```
 ## 2. Run salmon quant to get read counts  
+run salmon_count.sh as:
+```bash
+sh salmon_count.sh sample.txt
+```
+if the PE fq file named as 2109.pair_1.fq.gz, 2109.pair_2.fq.gz; 2110.pair_1.fq.gz, 2110.pair_2.fq.gz..., the sample.txt will be:
+```bash
+2109
+2110
+```
+and the salmon_count.sh is:
 ```bash
 while read line
 do
