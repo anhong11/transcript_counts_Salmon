@@ -41,3 +41,27 @@ do
 done<$1
 ```
 ## 3. Use tximport and DESeq2 to get PCA
+Prepare packages for tximport and DESeq2
+```bash
+module load r/r-3.6.0-python-2.7.14-tk
+export R_LIBS=~/R/:${R_LIBS}
+srun --pty -p Interactive --mem 64G R
+```
+Install R packages **only at the first time** you use them
+```bash
+> install.packages("BiocManager") #only the first time
+> install.packages("jsonlite") #only the first time
+> install.packages("plyr", lib="~/R/") #only the first time
+> install.packages("ggplot2") #only the first time
+> library(ggplot2)
+> install.packages("Hmisc") #only the first time
+> BiocManager::install("DESeq2") #only the first time
+> library(DESeq2)
+> BiocManager::install("tximport") #only the first time
+> library(tximport)
+> install.packages("RColorBrewer") #only the first time
+> library(RColorBrewer)
+> BiocManager::install("apeglm")
+> library(apeglm)
+```
+
