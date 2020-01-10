@@ -47,7 +47,7 @@ module load r/r-3.6.0-python-2.7.14-tk
 export R_LIBS=~/R/:${R_LIBS} #~/R/: your own R library path
 srun --pty -p Interactive --mem 64G R
 ```
-Install R packages `**only at the first time**`, and then load them for R (in R cmd model)
+Install R packages **only at the first time**, and then load them for R (in R cmd model)
 ```bash
 install.packages("BiocManager")
 install.packages("jsonlite")
