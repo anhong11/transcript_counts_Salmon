@@ -1,10 +1,7 @@
 # transcript_counts_Salmon
 Create PCA of read counts using Salmon and DESeq2  
->Salmon: https://github.com/COMBINE-lab/salmon  
->DESeq2: https://bioconductor.org/packages/release/bioc/html/DESeq2.html
 
-
-## 1. Index the transcriptomes with Salmon
+## 1. Index the transcriptomes with [Salmon](https://github.com/COMBINE-lab/salmon)
 ```bash
 sbatch -n 14 --mem 96G -t 4:00:00 -p Lewis,BioCompute --wrap="salmon index -t pan_trans_cds.fa -i pan_trans_cds_index -k 31 --keepDuplicates -p 14"
 ```
@@ -40,7 +37,7 @@ do
 	cd ..
 done<$1
 ```
-## 3. Use tximport and DESeq2 to get PCA
+## 3. Use tximport and [DESeq2](https://bioconductor.org/packages/release/bioc/html/DESeq2.html) to get PCA
 Prepare packages for tximport and DESeq2
 ```bash
 module load r/r-3.6.0-python-2.7.14-tk
