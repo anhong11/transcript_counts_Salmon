@@ -27,6 +27,7 @@ do
 done <$1 
 ```
 split *B. napus* quant.sf into A- and C- subgenomes, run split_AC_quant.sh as:
+	**only B. napus need this step
 ```bash
 sh split_AC_quant.sh sample.txt
 ```
