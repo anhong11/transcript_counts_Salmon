@@ -61,10 +61,48 @@ BiocManager::install("tximport")
 install.packages("RColorBrewer")
 BiocManager::install("apeglm")
 
+#Load library
 library(ggplot2)
 library(DESeq2)
 library(tximport)
 library(RColorBrewer)
 library(apeglm)
+
+#calculate
+samples <- read.table("phenotype_Bn_noAdmix.txt", header = TRUE)
+files <- file.path("/storage/htc/pireslab/salmon/b_napus/quants", samples$sample, "quant.sf")
+txi <- tximport(files, type = "salmon", tx2gene = trans2gene)
+write.csv(txi$counts, "txi.csv") #use this if you just want a table of counts per sample
+dds <- DESeqDataSetFromTximport(txi, colData = samples, design = ~1)
+keep <- rowSums(counts(dds)) >= 2
+dds <- dds[keep,]
+colSums(counts(dds)) #this just checks how many reads per sample
+dds <- estimateSizeFactors(dds)  #I think this is correcting for library size, which is important for all Brassica dataset
+dds_vst <- vst(dds) #normalized with respect to library size or other normalization factors.
+pcaData <- plotPCA(dds_vst, intgroup=c("group"), ntop = 500, returnData=TRUE)  #PCA plot
+percentVar <- round(100 * attr(pcaData, "percentVar"))
+
+#Plot
+cols <-c("WEAm"='yellow', "WEsA"='orange', "S"='red', "R"='blue', "SK"='purple', "WeA"='green')
+PCA_Expression <- ggplot(pcaData, aes(PC1, PC2, color=group)) +
+  						geom_point(size=3) +
+ 						xlab(paste0("PC1: ",percentVar[1],"% variance")) +
+ 						ylab(paste0("PC2: ",percentVar[2],"% variance")) + 
+ 						scale_color_manual(values=cols) +
+ 						ggtitle("Expression Variation between different B. napus") +
+ 	 					coord_fixed()
+ggsave("PCA_Expression_Bnapus.pdf", PCA_Expression, width = 8.5, height = 9)
+
+############ MMabry plot cmd##############
+PCA_Expression <- ggplot(pcaData, aes(PC1, PC2, color=phenotype, shape=group.1)) +
+  						geom_point(size=3) +
+ 						xlab(paste0("PC1: ",percentVar[1],"% variance")) +
+ 						ylab(paste0("PC2: ",percentVar[2],"% variance")) + 
+ 						scale_color_manual(values=getPalette(23)) +
+ 						ggtitle("Expression Variation between Wild and Domesticated B. oleracea") +
+ 	 					coord_fixed()
+ggsave("PCA_Expression_wild_domest.pdf", PCA_Expression, width = 8.5, height = 9)
+#########################################
+
 ```
 
