@@ -79,7 +79,7 @@ dds <- dds[keep,]
 colSums(counts(dds)) #this just checks how many reads per sample
 dds <- estimateSizeFactors(dds)  #I think this is correcting for library size, which is important for all Brassica dataset
 dds_vst <- vst(dds) #normalized with respect to library size or other normalization factors.
-pcaData <- plotPCA(dds_vst, intgroup=c("group"), ntop = 500, returnData=TRUE)  #PCA plot
+pcaData <- plotPCA(dds_vst, intgroup=c("group"), ntop = 500, returnData=TRUE)  #PCA plot; MMbary's cmd: pcaData <- plotPCA(dds_vst, intgroup=c("phenotype", "group"), ntop = 500, returnData=TRUE)
 percentVar <- round(100 * attr(pcaData, "percentVar"))
 
 #Plot
