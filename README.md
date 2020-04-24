@@ -68,7 +68,7 @@ library(tximport)
 library(RColorBrewer)
 library(apeglm)
 
-#calculate
+#Calculate
 samples <- read.table("phenotype_Bn_noAdmix.txt", header = TRUE)
 files <- file.path("/storage/htc/pireslab/salmon/b_napus/quants", samples$sample, "quant.sf")
 txi <- tximport(files, type = "salmon", tx2gene = trans2gene)
