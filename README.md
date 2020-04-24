@@ -47,7 +47,7 @@ Prepare packages for tximport and DESeq2
 ```bash
 module load r/r-3.6.0-python-2.7.14-tk
 export R_LIBS=~/R/:${R_LIBS} #~/R/: your own R library path
-srun --pty -p Interactive --mem 64G R
+srun --pty -p Interactive -c8 --mem 64G R
 ```
 Install R packages **only at the first time**, and then load them for R (in R cmd model)
 ```bash
