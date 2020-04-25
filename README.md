@@ -69,7 +69,7 @@ library(RColorBrewer)
 library(apeglm)
 ```
 
-B. napus only R script
+*B. napus* only R script
 ```bash
 #Calculate
 samples <- read.table("phenotype_Bn_noAdmix.txt", header = TRUE)
@@ -98,7 +98,7 @@ PCA_Expression <- ggplot(pcaData, aes(PC1, PC2, color=group)) +
 ggsave("PCA_Expression_Bnapus.pdf", PCA_Expression, width = 8.5, height = 9)
 ```
 
-A subgenome(B. rapa and B. napus) only R script\
+A subgenome (*B. rapa* and *B. napus*) R script
 ```bash
 #Calculate
 samples <- read.table("phyenotype_A_noAdmix.txt", header = TRUE)
@@ -116,7 +116,7 @@ pcaData <- plotPCA(dds_vst, intgroup=c("phenotype", "group"), ntop = 500, return
 percentVar <- round(100 * attr(pcaData, "percentVar"))
 
 #Plot
-cols <-c("WEAm"='yellow', "WEsA"='orange', "S"='red', "R"='blue', "SK"='purple', "WeA"='green')
+cols <-c("WEAm"='yellow', "WEsA"='orange', "S"='red', "R"='blue', "SK"='purple', "WeA"='green', "Chinensis"='', "EU-CA"='', "Pekinensis"='', "Sarson"='', "Sylvestris"='')
 PCA_Expression <- ggplot(pcaData, aes(PC1, PC2, color=group, shape=phenotype.1)) +
   						geom_point(size=3) +
  						xlab(paste0("PC1: ",percentVar[1],"% variance")) +
