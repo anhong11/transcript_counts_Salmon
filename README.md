@@ -48,9 +48,8 @@ Prepare packages for tximport and DESeq2
 module load r/r-3.6.0-python-2.7.14-tk
 export R_LIBS=~/R/:${R_LIBS} #~/R/: your own R library path
 srun --pty -p Interactive -c8 --mem 64G R
-```
-Install R packages **only at the first time**, and then load them for R (in R cmd model)
-```bash
+
+###Install R packages only at the first time, and then load them for R (in R cmd model)###
 install.packages("BiocManager")
 install.packages("jsonlite")
 install.packages("plyr", lib="~/R/")
@@ -60,6 +59,7 @@ BiocManager::install("DESeq2")
 BiocManager::install("tximport")
 install.packages("RColorBrewer")
 BiocManager::install("apeglm")
+##########################################################################################
 
 #Load library
 library(ggplot2)
@@ -67,10 +67,14 @@ library(DESeq2)
 library(tximport)
 library(RColorBrewer)
 library(apeglm)
+```
 
+B. napus only R script
+```bash
 #Calculate
 samples <- read.table("phenotype_Bn_noAdmix.txt", header = TRUE)
 files <- file.path("/storage/htc/pireslab/salmon/b_napus/quants", samples$sample, "quant.sf")
+trans2gene <- read.csv("trans2gene_all")
 txi <- tximport(files, type = "salmon", tx2gene = trans2gene)
 write.csv(txi$counts, "txi.csv") #use this if you just want a table of counts per sample
 dds <- DESeqDataSetFromTximport(txi, colData = samples, design = ~1)
@@ -92,17 +96,35 @@ PCA_Expression <- ggplot(pcaData, aes(PC1, PC2, color=group)) +
  						ggtitle("Expression Variation between different B. napus") +
  	 					coord_fixed()
 ggsave("PCA_Expression_Bnapus.pdf", PCA_Expression, width = 8.5, height = 9)
+```
 
-############ MMabry plot cmd##############
-PCA_Expression <- ggplot(pcaData, aes(PC1, PC2, color=phenotype, shape=group.1)) +
+A subgenome(B. rapa and B. napus) only R script\
+```bash
+#Calculate
+samples <- read.table("phyenotype_A_noAdmix.txt", header = TRUE)
+files <- file.path("/storage/htc/pireslab/salmon/sub_A_quant", samples$sample, "quant.sf")
+trans2gene <- read.csv("trans2gene_A")
+txi <- tximport(files, type = "salmon", tx2gene = trans2gene)
+write.csv(txi$counts, "txi.csv") #use this if you just want a table of counts per sample
+dds <- DESeqDataSetFromTximport(txi, colData = samples, design = ~1)
+keep <- rowSums(counts(dds)) >= 2
+dds <- dds[keep,]
+colSums(counts(dds)) #this just checks how many reads per sample
+dds <- estimateSizeFactors(dds)  #I think this is correcting for library size, which is important for all Brassica dataset
+dds_vst <- vst(dds) #normalized with respect to library size or other normalization factors.
+pcaData <- plotPCA(dds_vst, intgroup=c("phenotype", "group"), ntop = 500, returnData=TRUE)  #PCA plot
+percentVar <- round(100 * attr(pcaData, "percentVar"))
+
+#Plot
+cols <-c("WEAm"='yellow', "WEsA"='orange', "S"='red', "R"='blue', "SK"='purple', "WeA"='green')
+PCA_Expression <- ggplot(pcaData, aes(PC1, PC2, color=group, shape=phenotype.1)) +
   						geom_point(size=3) +
  						xlab(paste0("PC1: ",percentVar[1],"% variance")) +
  						ylab(paste0("PC2: ",percentVar[2],"% variance")) + 
- 						scale_color_manual(values=getPalette(23)) +
- 						ggtitle("Expression Variation between Wild and Domesticated B. oleracea") +
+ 						scale_color_manual(values=cols) +
+ 						ggtitle("Expression Variation among A subgenome") +
  	 					coord_fixed()
-ggsave("PCA_Expression_wild_domest.pdf", PCA_Expression, width = 8.5, height = 9)
-#########################################
+ggsave("PCA_Expression_Asub.pdf", PCA_Expression, width = 8.5, height = 9)
 
 ```
 
