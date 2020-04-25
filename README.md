@@ -116,7 +116,7 @@ pcaData <- plotPCA(dds_vst, intgroup=c("phenotype", "group"), ntop = 500, return
 percentVar <- round(100 * attr(pcaData, "percentVar"))
 
 #Plot
-cols <-c("WEAm"='yellow', "WEsA"='orange', "S"='red', "R"='blue', "SK"='purple', "WeA"='green', "Chinensis"='', "EU-CA"='', "Pekinensis"='', "Sarson"='', "Sylvestris"='')
+cols <-c("WEAm"='yellow', "WEsA"='orange', "S"='red', "R"='blue', "SK"='purple', "WeA"='green', "Chinensis"='cyan2', "EU-CA"='bisque3', "Pekinensis"='coral', "Sarson"='brown', "Sylvestris"='deeppink')
 PCA_Expression <- ggplot(pcaData, aes(PC1, PC2, color=group, shape=phenotype.1)) +
   						geom_point(size=3) +
  						xlab(paste0("PC1: ",percentVar[1],"% variance")) +
